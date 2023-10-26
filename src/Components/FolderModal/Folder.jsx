@@ -134,10 +134,11 @@ const Folder = () => {
                             <a href={el.url}>
                               <FontAwesomeIcon icon={faDownload} />
                             </a>
+
                             <a href=''>
                               <FontAwesomeIcon icon={faEye} />
                             </a>
-                            {/* <a href='#' onClick={handleClickConfirm}> */}
+                      
                             <FontAwesomeIcon
                               icon={faTrash}
                               onClick={() => handleClickConfirm(el.id, el.name)}
