@@ -5,17 +5,12 @@ import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faGear, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import User from "../User/User";
-import { auth } from "../../api/firebase";
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const logOut = () => {
-    auth.signOut();
-    localStorage.removeItem("localUser");
-  };
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-  var local = JSON.parse(localStorage.getItem("localUser"));
   const [showSetting, setShowSetting] = useState(true);
   console.log(showSetting);
   return (
@@ -34,7 +29,7 @@ const Sidebar = () => {
         </a>
         <ul>
           <li>
-            <a>{local?.email}</a>
+            <a>almaz@gmail.com</a>
           </li>
 
           <li>
@@ -42,7 +37,7 @@ const Sidebar = () => {
               Settings <FontAwesomeIcon icon={faGear} />
             </a>
           </li>
-          <li className='logout' onClick={logOut}>
+          <li className='logout'>
             <a>
               Logout <FontAwesomeIcon icon={faSignOut} />{" "}
             </a>
