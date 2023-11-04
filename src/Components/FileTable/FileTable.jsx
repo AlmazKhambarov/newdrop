@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import {
+  faCopy,
   faDownload,
   faEye,
   faFile,
@@ -50,14 +51,25 @@ function FileTable() {
       ],
     });
   };
+  const [copy, setCopy] = useState(false);
+  const copyText = async (link) => {
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopy(true);
+      alert("Succsesfuly copiyed");
+    } catch (err) {
+      console.error("Failed to copy link: ", err);
+      setCopy(false);
+    }
+  };
   const filtredData = foldersData?.filter((x) => x.folderId == 1);
   const filtredFiles = filesData?.filter((x) => x.folderId == 1);
   console.log(foldersData);
   return (
     <>
       {deleteF ? (
-        <div className="load">
-          <div className="loader"></div>
+        <div className='load'>
+          <div className='loader'></div>
         </div>
       ) : (
         <>
@@ -82,6 +94,9 @@ function FileTable() {
                         <a href={el.url}>
                           <FontAwesomeIcon icon={faDownload} />
                         </a>
+                        <span onClick={() => copyText(el?.url)}>
+                          <FontAwesomeIcon icon={faCopy} />
+                        </span>
                         <a href=''>
                           <FontAwesomeIcon icon={faEye} />
                         </a>

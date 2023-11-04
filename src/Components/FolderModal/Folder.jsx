@@ -12,6 +12,7 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import {
   faArrowLeftLong,
   faArrowRightLong,
+  faCopy,
   faDownload,
   faEye,
   faFile,
@@ -59,9 +60,20 @@ const Folder = () => {
       ],
     });
   };
+  const [copy, setCopy] = useState(false);
+  const copyText = async (link) => {
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopy(true);
+      alert("Succsesfuly copiyed");
+    } catch (err) {
+      console.error("Failed to copy link: ", err);
+      setCopy(false);
+    }
+  };
   return (
     <>
-      {createFolderLoading || deleteF? (
+      {createFolderLoading || deleteF ? (
         <div className='load'>
           <div className='loader'></div>
         </div>
@@ -137,7 +149,9 @@ const Folder = () => {
                             <a href=''>
                               <FontAwesomeIcon icon={faEye} />
                             </a>
-                      
+                            <span onClick={() => copyText(el.url)}>
+                              <FontAwesomeIcon icon={faCopy} />
+                            </span>
                             <FontAwesomeIcon
                               icon={faTrash}
                               onClick={() => handleClickConfirm(el.id, el.name)}
